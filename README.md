@@ -5,15 +5,25 @@ Throughout my academic career, I have kept a planner and a notebook to document 
 Insert pictures of my physical planners:
 
 ## Project Technologies/Techniques
+
 Database: MySQL 8.x
+
 Dependency Management: Maven
+
 CSS: Bootstrap/Custom
+
 Logging: Log4J2
+
 Hosting: AWS
+
 Tech I'd like to explore: NodeJS, Bootstrap
+
 Unit Testing: JUnit 
+
 IDE: IntelliJ IDEA/VSCODE
+
 ## Design
 
+
 Plan 
-Journal
+[Journal](Journal.md)
