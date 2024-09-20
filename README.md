@@ -24,6 +24,8 @@ IDE: IntelliJ IDEA/VSCODE
 
 ## Design
 
-
-Plan 
 [Journal](Journal.md)
+
+[Project Plan](ProjectPlan.md)
+
+[Screen Design](Screens.md)
