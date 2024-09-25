@@ -24,21 +24,28 @@
 ### Week 8
 
 - [ ] Deploy to AWS
+- [ ] Test AWS
 
 ### Week 9 (Start of the team project)
 #### Checkpoint 3 is Due: Deployed to AWS, at least one JSP that displays data from the database is implemented, authentication implemented, add AWS deployed app link to indie project list in student repo.
 - [ ] Double-check all checkpoint 3 items (above) are complete and visible in github.
 
 ### Week 10
-
+- [ ] Develop core features(calendar)
+- [ ] Work on user story (Add Delete Edit)
+      
 ### Week 11
-
+- [ ] Prepare for review
+      
 ### Week 12
-
+- [ ] Revise
+      
 ### Week 13
-
+- [ ] Finish ALL User stories
+      
 ### Week 14
-
+- [ ] Get ready for review, have everything finished by this week
+      
 ### Week 15
 - [ ] Implement Feedback from Week 14 review
 - [ ] Final Presentation
