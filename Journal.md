@@ -9,3 +9,6 @@ Created database, got everything initalized!
 getting things ready for the first checkpoint.
 
 9/20/24 Finished everything needed for checkpoint 1
+
+## Week 6 - Fall 2024
+9/30/24 Was sick last week so I am putting aside extra time to work this week. Attempting to add DAO files today. 
