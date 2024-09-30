@@ -8,7 +8,7 @@ public class PlannerApp {
 
     public static void main(String[] args) {
         Connection connection = DatabaseConnection.getConnection();
-        TaskDAO taskDAO = new TaskDAOImpl(connection);
+        TaskDAO taskDAO = new TaskDAO(connection);
 
         // Create a new task
         Task newTask = new Task("Team Meeting", LocalDate.now().plusDays(2), LocalDate.now().plusDays(5), "Discuss project progress");

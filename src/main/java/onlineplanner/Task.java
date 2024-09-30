@@ -1,12 +1,23 @@
 package onlineplanner;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDate;
+@Entity
+@Table(name="tasks")
 public class Task {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     private int id;
+    @Column(name="title")
     private String title;
+    @Column(name="description")
     private String description;
+    @Column(name="todo_date")
     private LocalDate todoDate;
+    @Column(name="due_date")
     private LocalDate dueDate;
 
     public Task(String title, LocalDate todoDate, LocalDate dueDate, String description) {
