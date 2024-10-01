@@ -16,9 +16,13 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    public LocalDate getDate() {
+        return LocalDate.now();
+    }
+
     public List<Task> getTasksForDate(LocalDate date) {
         return tasks.stream()
-                .filter(task -> task.getDate().equals(date))
+                .filter(task -> getDate().equals(date))
                 .collect(Collectors.toList());
     }
 

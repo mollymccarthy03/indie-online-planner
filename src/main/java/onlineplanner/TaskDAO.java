@@ -13,7 +13,7 @@ import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
 import java.util.List;
 
-public class TaskDao {
+public class TaskDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();

@@ -27,6 +27,10 @@ public class Task {
         this.description = description;
     }
 
+    public Task() {
+
+    }
+
     // Getters and Setters
     public int getId() { return id; }
 
