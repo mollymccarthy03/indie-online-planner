@@ -89,7 +89,8 @@ public class TaskDAO {
 
     /**
      * Get Task by property (exact match)
-     * sample usage: getByPropertyEqual("lastname", "Curry")
+     * sample usage: getByPropertyEqual("title", "Testing Java Application")
+     * Future usage: get all tasks with to do date of wednesday
      */
     public List<Task> getByPropertyEqual(String propertyName, String value) {
         Session session = sessionFactory.openSession();
@@ -108,7 +109,8 @@ public class TaskDAO {
 
     /**
      * Get Task by property (like)
-     * sample usage: getByPropertyLike("lastname", "C")
+     * sample usage: getByPropertyLike("title", "Java")
+     * Future usage: get all tasks with title including java keyword
      */
     public List<Task> getByPropertyLike(String propertyName, String value) {
         Session session = sessionFactory.openSession();
