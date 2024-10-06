@@ -5,7 +5,7 @@
 
 ### Week 5
 
-- [ ] Set up database/authorization, DAO and CRUD
+- [x] Set up database/authorization, DAO and CRUD
 
 ### Week 6
 
@@ -25,26 +25,39 @@
 
 - [ ] Deploy to AWS
 - [ ] Test AWS
+- [ ] Look into checkpoint 9 to work ahead
 
 ### Week 9 (Start of the team project)
 #### Checkpoint 3 is Due: Deployed to AWS, at least one JSP that displays data from the database is implemented, authentication implemented, add AWS deployed app link to indie project list in student repo.
 - [ ] Double-check all checkpoint 3 items (above) are complete and visible in github.
+- [ ] Begin process of creating add tasks jsp
+- [ ] Design and create Add Assignment page
+- [ ] JSP, DAO, testing
 
 ### Week 10
 - [ ] Develop core features(calendar)
-- [ ] Work on user story (Add Delete Edit)
+- [ ] Design and create calendar feature, make sure output is correct
+- [ ] Create script to put tasks in the calendar for testing
+- [ ] Design and create daily assignment list
+- [ ] Create JSPs
       
 ### Week 11
-- [ ] Prepare for review
+- [ ] Integrate the past week into the current build
+- [ ] Work on Delete Assignment
+- [ ] JSP, DAO, testing
       
 ### Week 12
-- [ ] Revise
+- [ ] Design and create update Assignment
+- [ ] Make sure database connection and outputs are running smoothly
+- [ ] JSP, DAO, testing
       
 ### Week 13
 - [ ] Finish ALL User stories
+- [ ] CSS and styling
+- [ ] Major bugs identified
       
 ### Week 14
-- [ ] Get ready for review, have everything finished by this week
+- [ ] Get ready for review, have major bugs fixed by this week
       
 ### Week 15
 - [ ] Implement Feedback from Week 14 review
@@ -56,4 +69,6 @@
 
 ### Week 16
 - [ ] Weekly journal entry
+- [ ] Test
 - [ ] Final touches before code complete
+- [ ] TURN IN!
