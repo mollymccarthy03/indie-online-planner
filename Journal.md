@@ -15,4 +15,4 @@ getting things ready for the first checkpoint.
 
 10/1/24 Continued to implement DAO and hibernate into my project, I need to run tests and then I will be able to submit week 4
 
-10/6 Attempted to fix my POM that is giving me a weird error with my Driver
+10/6 Attempted to fix my POM that is giving me a weird error with my Driver, finished up week 4 activity(implementing DAO for one table)
