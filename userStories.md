@@ -1,7 +1,5 @@
 # User Stories
 
-* need
-
 ## Sign In *
 As a registered user, I want to sign into an account so I can add and edit my weekly assignments on the go
 
