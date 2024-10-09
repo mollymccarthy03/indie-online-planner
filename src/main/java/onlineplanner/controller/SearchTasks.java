@@ -1,4 +1,6 @@
-package onlineplanner;
+package onlineplanner.controller;
+
+import onlineplanner.TaskDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

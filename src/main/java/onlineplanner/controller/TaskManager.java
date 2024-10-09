@@ -1,4 +1,6 @@
-package onlineplanner;
+package onlineplanner.controller;
+
+import onlineplanner.entity.Task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
-package onlineplanner;
+package onlineplanner.util;
 
-import onlineplanner.util.Database;
+import onlineplanner.TaskDAO;
+import onlineplanner.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -13,36 +14,47 @@ class TaskDAOTest {
     @BeforeEach
             void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("cleanDB.sql");
+        database.runSQL("test/resources/cleanDB.sql");
+        taskDAO = new TaskDAO();
     }
 
     TaskDAO taskDAO;
     @Test
     void getById() {
-        taskDAO = new TaskDAO();
-        taskDAO.getById(1);
-        Task getTask = taskDAO.getById(1);
+        taskDAO.getById(4);
+        Task getTask = taskDAO.getById(4);
         assertNotNull(getTask);
-        assertEquals("Updated Week One",getTask.getTitle());
+        assertEquals("Finish Planner",getTask.getTitle());
     }
 
     @Test
     void update() {
-        taskDAO = new TaskDAO();
         // Retrieve the task you want to update (assume it exists)
-        Task existingTask = taskDAO.getById(1);
-        // Modify the task
-        existingTask.setTitle("Updated Week One");
+        Task existingTask = taskDAO.getById(4);
+
+        // Store the original value to restore it later
+        String originalTitle = existingTask.getTitle();
+
+        // Modify the task (e.g., update the title)
+        existingTask.setTitle("Updated Task Title");
         taskDAO.update(existingTask);
+
         // Retrieve the task again and assert that the update occurred
-        Task updatedTask = taskDAO.getById(1);
-        assertEquals("Updated Week One", updatedTask.getTitle());
+        Task updatedTask = taskDAO.getById(4);
+        assertEquals("Updated Task Title", updatedTask.getTitle());
+
+        // Restore the original value
+        existingTask.setTitle(originalTitle);
+        taskDAO.update(existingTask);
+
+        // Verify the restoration
+        Task restoredTask = taskDAO.getById(4);
+        assertEquals(originalTitle, restoredTask.getTitle());
     }
 
 
     @Test
     void insertSuccess() {
-        taskDAO = new TaskDAO();
         // Create a new task
         Task taskToInsert = new Task("Testing Java Application", "Add testing", LocalDate.now(), LocalDate.now().plusDays(5));
         // Insert the task
@@ -56,29 +68,27 @@ class TaskDAOTest {
 
     @Test
     void delete() {
-        taskDAO = new TaskDAO();
-        taskDAO.delete(taskDAO.getById(3));
-        assertNull(taskDAO.getById(3));
+        taskDAO.delete(taskDAO.getById(5));
+        assertNull(taskDAO.getById(5));
     }
 
     @Test
     void getAll() {
-        taskDAO = new TaskDAO();
         List<Task> tasks = taskDAO.getAll();
-        assertEquals(4, tasks.size());
+        assertEquals(2, tasks.size());
     }
 
     @Test
     void getByPropertyEqual() {
         taskDAO = new TaskDAO();
         List<Task> tasks = taskDAO.getByPropertyEqual("title", "Testing Java Application");
-        assertEquals(3, tasks.size());
+        assertEquals(1, tasks.size());
     }
 
     @Test
     void getByPropertyLike() {
         taskDAO = new TaskDAO();
         List<Task> tasks = taskDAO.getByPropertyLike("title", "Week");
-        assertEquals(1, tasks.size());
+        assertEquals(0, tasks.size());
     }
 }

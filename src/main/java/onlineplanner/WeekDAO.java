@@ -1,6 +1,6 @@
 package onlineplanner;
 
-import onlineplanner.entity.Task;
+import onlineplanner.entity.Week;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Root;
@@ -13,120 +13,115 @@ import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
 import java.util.List;
 
-public class TaskDAO {
+public class WeekDAO {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     /**
-     * Get Task by id
+     * Get Week by id
      */
-    public Task getById(int id) {
+    public Week getById(int id) {
         Session session = sessionFactory.openSession();
-        Task task = session.get(Task.class, id);
+        Week week = session.get(Week.class, id);
         session.close();
-        return task;
+        return week;
     }
 
     /**
-     * update Task
-     * @param task  Task to be updated
+     * Update Week
+     * @param week Week to be updated
      */
-    public void update(Task task) {
+    public void update(Week week) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.merge(task);
+        session.merge(week);
         transaction.commit();
         session.close();
     }
 
     /**
-     * insert a new Task
-     * @param task  Task to be inserted
+     * Insert a new Week
+     * @param week Week to be inserted
      */
-    public int insert(Task task) {
+    public int insert(Week week) {
         int id = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(task);
+        session.persist(week);
         transaction.commit();
-        id = task.getId();
+        id = week.getId();  // Get the generated id after the insert
         session.close();
         return id;
     }
 
     /**
-     * Delete a Task
-     * @param task task to be deleted
+     * Delete a Week
+     * @param week Week to be deleted
      */
-    public void delete(Task task) {
+    public void delete(Week week) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(task);
+        session.delete(week);
         transaction.commit();
         session.close();
     }
 
-
-    /** Return a list of all Tasks
-     *
-     * @return All Tasks
+    /**
+     * Return a list of all Weeks
+     * @return All Weeks
      */
-    public List<Task> getAll() {
-
+    public List<Week> getAll() {
         Session session = sessionFactory.openSession();
 
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Task> query = builder.createQuery(Task.class);
-        Root<Task> root = query.from(Task.class);
-        List<Task> tasks = session.createSelectionQuery( query ).getResultList();
+        CriteriaQuery<Week> query = builder.createQuery(Week.class);
+        Root<Week> root = query.from(Week.class);
+        List<Week> weeks = session.createSelectionQuery(query).getResultList();
 
-        logger.debug("The list of Tasks " + tasks);
+        logger.debug("The list of Weeks: " + weeks);
         session.close();
 
-        return tasks;
+        return weeks;
     }
 
     /**
-     * Get Task by property (exact match)
-     * sample usage: getByPropertyEqual("title", "Testing Java Application")
-     * Future usage: get all tasks with to do date of wednesday
+     * Get Week by property (exact match)
+     * Example: getByPropertyEqual("mon", "2024-10-07")
      */
-    public List<Task> getByPropertyEqual(String propertyName, String value) {
+    public List<Week> getByPropertyEqual(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
-        logger.debug("Searching for Task with " + propertyName + " = " + value);
+        logger.debug("Searching for Week with " + propertyName + " = " + value);
 
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Task> query = builder.createQuery(Task.class);
-        Root<Task> root = query.from(Task.class);
+        CriteriaQuery<Week> query = builder.createQuery(Week.class);
+        Root<Week> root = query.from(Week.class);
         query.select(root).where(builder.equal(root.get(propertyName), value));
-        List<Task> tasks = session.createSelectionQuery( query ).getResultList();
+        List<Week> weeks = session.createSelectionQuery(query).getResultList();
 
         session.close();
-        return tasks;
+        return weeks;
     }
 
     /**
-     * Get Task by property (like)
-     * sample usage: getByPropertyLike("title", "Java")
-     * Future usage: get all tasks with title including java keyword
+     * Get Week by property (like)
+     * Example: getByPropertyLike("mon", "2024-10")
      */
-    public List<Task> getByPropertyLike(String propertyName, String value) {
+    public List<Week> getByPropertyLike(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
-        logger.debug("Searching for Task with {} = {}",  propertyName, value);
+        logger.debug("Searching for Week with {} like {}", propertyName, value);
 
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Task> query = builder.createQuery(Task.class);
-        Root<Task> root = query.from(Task.class);
+        CriteriaQuery<Week> query = builder.createQuery(Week.class);
+        Root<Week> root = query.from(Week.class);
         Expression<String> propertyPath = root.get(propertyName);
 
         query.where(builder.like(propertyPath, "%" + value + "%"));
 
-        List<Task> Tasks = session.createQuery( query ).getResultList();
+        List<Week> weeks = session.createQuery(query).getResultList();
         session.close();
-        return Tasks;
+        return weeks;
     }
-
 }

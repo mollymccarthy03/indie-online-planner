@@ -1,4 +1,4 @@
-package onlineplanner;
+package onlineplanner.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,6 +18,10 @@ public class Task {
     private LocalDate todoDate;
     @Column(name="due_date")
     private LocalDate dueDate;
+
+    @ManyToOne
+    @JoinColumn(name = "week_id")
+    private Week week;  // Reference to the Week
 
     public Task(String title, String description, LocalDate todoDate, LocalDate dueDate) {
         this.title = title;
@@ -67,6 +71,14 @@ public class Task {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public Week getWeek() {
+        return week;
+    }
+
+    public void setWeek(Week week) {
+        this.week = week;
     }
 
     @Override
