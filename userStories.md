@@ -15,7 +15,7 @@ As any user, I want to be able to delete an assignment from the weekly calendar
 ## Edit Assignment *
 As any user, I want to be able to edit an assignment from the weekly calendar
 
-## Assignment Calendar
+## Assignment Calendar *
 As any user, I want to be able to see my assignments on the calendar
 
 ## Daily Assignment List *

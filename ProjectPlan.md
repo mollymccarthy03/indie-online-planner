@@ -9,7 +9,7 @@
 
 ### Week 6
 
-- [ ] Continue with hibernate setup, unit testing and LOG4J
+- [x] Continue with hibernate setup, unit testing and LOG4J
 
 ### Week 7
 #### Checkpoint 2 is Due: Database designed and created, at least one DAO with full CRUD (create, read, update, delete) implemented with Hibernate, DAO is fully unit tested, Log4J is implemented (no System.out.printlns)
