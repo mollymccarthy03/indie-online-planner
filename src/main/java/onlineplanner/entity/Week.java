@@ -15,29 +15,29 @@ public class Week {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
-    @Column(name = "mon")
-    private LocalDate mon;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> mon;
 
-    @Column(name = "tues")
-    private LocalDate tues;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> tues;
 
-    @Column(name = "weds")
-    private LocalDate weds;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> weds;
 
-    @Column(name = "thurs")
-    private LocalDate thurs;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> thurs;
 
-    @Column(name = "fri")
-    private LocalDate fri;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> fri;
 
-    @Column(name = "sat")
-    private LocalDate sat;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> sat;
 
-    @Column(name = "sun")
-    private LocalDate sun;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Task> sun;
 
     // Mapping each day of the week to a list of tasks
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
     // Constructors, getters, setters...
@@ -45,7 +45,7 @@ public class Week {
     public Week() {
     }
 
-    public Week(LocalDate mon, LocalDate tues, LocalDate weds, LocalDate thurs, LocalDate fri, LocalDate sat, LocalDate sun) {
+    public Week(List<Task> mon, List<Task> tues, List<Task> weds, List<Task> thurs, List<Task> fri, List<Task> sat, List<Task> sun) {
         this.mon = mon;
         this.tues = tues;
         this.weds = weds;
@@ -64,59 +64,59 @@ public class Week {
         this.id = id;
     }
 
-    public LocalDate getMon() {
+    public List<Task> getMon() {
         return mon;
     }
 
-    public void setMon(LocalDate mon) {
+    public void setMon(List<Task> mon) {
         this.mon = mon;
     }
 
-    public LocalDate getTues() {
+    public List<Task> getTues() {
         return tues;
     }
 
-    public void setTues(LocalDate tues) {
+    public void setTues(List<Task> tues) {
         this.tues = tues;
     }
 
-    public LocalDate getWeds() {
+    public List<Task> getWeds() {
         return weds;
     }
 
-    public void setWeds(LocalDate weds) {
+    public void setWeds(List<Task> weds) {
         this.weds = weds;
     }
 
-    public LocalDate getThurs() {
+    public List<Task> getThurs() {
         return thurs;
     }
 
-    public void setThurs(LocalDate thurs) {
+    public void setThurs(List<Task> thurs) {
         this.thurs = thurs;
     }
 
-    public LocalDate getFri() {
+    public List<Task> getFri() {
         return fri;
     }
 
-    public void setFri(LocalDate fri) {
+    public void setFri(List<Task> fri) {
         this.fri = fri;
     }
 
-    public LocalDate getSat() {
+    public List<Task> getSat() {
         return sat;
     }
 
-    public void setSat(LocalDate sat) {
+    public void setSat(List<Task> sat) {
         this.sat = sat;
     }
 
-    public LocalDate getSun() {
+    public List<Task> getSun() {
         return sun;
     }
 
-    public void setSun(LocalDate sun) {
+    public void setSun(List<Task> sun) {
         this.sun = sun;
     }
 
@@ -130,8 +130,10 @@ public class Week {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
-        task.setWeek(this); // Ensure the bidirectional relationship is maintained
+
+    }
+    public void showAllTasks(Task task) {
+
     }
 
     // toString method
