@@ -4,7 +4,6 @@ import onlineplanner.TaskDAO;
 import onlineplanner.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -48,7 +47,7 @@ class TaskDAOTest {
     @Test
     void insertSuccess() {
         // Create a new task
-        Task taskToInsert = new Task("Testing Java Application", "Add testing", LocalDate.now(), LocalDate.now().plusDays(5));
+        Task taskToInsert = new Task("Testing Java Application", "Add testing", 2,6);
         // Insert the task
         taskDAO.insert(taskToInsert);
         // Retrieve the task and assert that it was inserted

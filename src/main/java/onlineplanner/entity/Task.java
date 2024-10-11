@@ -2,71 +2,84 @@ package onlineplanner.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import java.time.LocalDate;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="todo_date")
-    private LocalDate todoDate;
-
-    @Column(name="due_date")
-    private LocalDate dueDate;
+    // Foreign key references to the day of the week
+    @ManyToOne
+    @JoinColumn(name = "todo_date", referencedColumnName = "id")
+    private Day todoDay; // Day for the planned todo day
 
     @ManyToOne
-    @JoinColumn(name = "day_id")
-    private Day day;
+    @JoinColumn(name = "due_date", referencedColumnName = "id")
+    private Day dueDay;  // Day for the due day
 
-    public Task(String title, String description, LocalDate todoDate, LocalDate dueDate) {
-        this.title = title;
-        this.description = description;
-        this.todoDate = todoDate;
-        this.dueDate = dueDate;
-    }
-
+    // Constructors
     public Task() {}
 
-    public Task(String testingJavaApplication, String addTesting, LocalDate now, LocalDate localDate, int i) {
+    // Constructor expecting Day objects
+    public Task(String title, String description, Day todoDay, Day dueDay) {
+        this.title = title;
+        this.description = description;
+        this.todoDay = todoDay;
+        this.dueDay = dueDay;
     }
 
     // Getters and Setters
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getDescription() { return description; }
+    public String getTitle() {
+        return title;
+    }
 
-    public LocalDate getTodoDate() { return todoDate; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public LocalDate getDueDate() { return dueDate; }
+    public String getDescription() {
+        return description;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public void setTitle(String title) { this.title = title; }
+    public Day getTodoDay() {
+        return todoDay;
+    }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setTodoDay(Day todoDay) {
+        this.todoDay = todoDay;
+    }
 
-    public void setTodoDate(LocalDate todoDate) { this.todoDate = todoDate; }
+    public Day getDueDay() {
+        return dueDay;
+    }
 
-    public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
-
-    public Day getDay() { return day; }  // Updated getter for Day
-
-    public void setDay(Day day) { this.day = day; }  // Updated setter for Day
+    public void setDueDay(Day dueDay) {
+        this.dueDay = dueDay;
+    }
 
     @Override
     public String toString() {
-        return title + " - Planned on: " + todoDate + ", Due: " + dueDate;
+        return title + " - Planned on: " + todoDay.getDayOfWeek() + ", Due: " + dueDay.getDayOfWeek();
     }
 }
