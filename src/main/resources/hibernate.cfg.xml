@@ -18,6 +18,7 @@
 
         <mapping class="onlineplanner.entity.Week"/>
         <mapping class="onlineplanner.entity.Task"/>
+        <mapping class="onlineplanner.entity.Day"/>
 
     </session-factory>
 

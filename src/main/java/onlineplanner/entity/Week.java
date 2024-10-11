@@ -1,61 +1,23 @@
 package onlineplanner.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "week")
 public class Week {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> mon;
+    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Day> days = new ArrayList<>();  // List of days in the week
 
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> tues;
+    // Constructors
+    public Week() {}
 
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> weds;
-
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> thurs;
-
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> fri;
-
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> sat;
-
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> sun;
-
-    // Mapping each day of the week to a list of tasks
-    @OneToMany(mappedBy = "week", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Task> tasks = new ArrayList<>();
-
-    // Constructors, getters, setters...
-
-    public Week() {
-    }
-
-    public Week(List<Task> mon, List<Task> tues, List<Task> weds, List<Task> thurs, List<Task> fri, List<Task> sat, List<Task> sun) {
-        this.mon = mon;
-        this.tues = tues;
-        this.weds = weds;
-        this.thurs = thurs;
-        this.fri = fri;
-        this.sat = sat;
-        this.sun = sun;
-    }
-
-    // Getters and Setters for fields
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -64,89 +26,28 @@ public class Week {
         this.id = id;
     }
 
-    public List<Task> getMon() {
-        return mon;
+    public List<Day> getDays() {
+        return days;
     }
 
-    public void setMon(List<Task> mon) {
-        this.mon = mon;
+    public void setDays(List<Day> days) {
+        this.days = days;
     }
 
-    public List<Task> getTues() {
-        return tues;
+    // Helper method to add a day to the week
+    public void addDay(Day day) {
+        days.add(day);
+        day.setWeek(this);
     }
 
-    public void setTues(List<Task> tues) {
-        this.tues = tues;
+    // Helper method to remove a day from the week
+    public void removeDay(Day day) {
+        days.remove(day);
+        day.setWeek(null);
     }
 
-    public List<Task> getWeds() {
-        return weds;
-    }
-
-    public void setWeds(List<Task> weds) {
-        this.weds = weds;
-    }
-
-    public List<Task> getThurs() {
-        return thurs;
-    }
-
-    public void setThurs(List<Task> thurs) {
-        this.thurs = thurs;
-    }
-
-    public List<Task> getFri() {
-        return fri;
-    }
-
-    public void setFri(List<Task> fri) {
-        this.fri = fri;
-    }
-
-    public List<Task> getSat() {
-        return sat;
-    }
-
-    public void setSat(List<Task> sat) {
-        this.sat = sat;
-    }
-
-    public List<Task> getSun() {
-        return sun;
-    }
-
-    public void setSun(List<Task> sun) {
-        this.sun = sun;
-    }
-
-    // Manage tasks (One-to-Many relationship)
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public void addTask(Task task) {
-
-    }
-    public void showAllTasks(Task task) {
-
-    }
-
-    // toString method
     @Override
     public String toString() {
-        return "Week{" +
-                "Monday=" + mon +
-                ", Tuesday=" + tues +
-                ", Wednesday=" + weds +
-                ", Thursday=" + thurs +
-                ", Friday=" + fri +
-                ", Saturday=" + sat +
-                ", Sunday=" + sun +
-                '}';
+        return "Week " + id + " with " + days.size() + " days";
     }
 }

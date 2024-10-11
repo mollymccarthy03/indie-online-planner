@@ -14,15 +14,15 @@ class TaskDAOTest {
     @BeforeEach
             void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("test/resources/cleanDB.sql");
+        database.runSQL("src/test/resources/cleanDB.sql");
         taskDAO = new TaskDAO();
     }
 
     TaskDAO taskDAO;
     @Test
     void getById() {
-        taskDAO.getById(4);
-        Task getTask = taskDAO.getById(4);
+        taskDAO.getById(1);
+        Task getTask = taskDAO.getById(1);
         assertNotNull(getTask);
         assertEquals("Finish Planner",getTask.getTitle());
     }
@@ -30,7 +30,7 @@ class TaskDAOTest {
     @Test
     void update() {
         // Retrieve the task you want to update (assume it exists)
-        Task existingTask = taskDAO.getById(4);
+        Task existingTask = taskDAO.getById(2);
 
         // Store the original value to restore it later
         String originalTitle = existingTask.getTitle();
@@ -40,16 +40,8 @@ class TaskDAOTest {
         taskDAO.update(existingTask);
 
         // Retrieve the task again and assert that the update occurred
-        Task updatedTask = taskDAO.getById(4);
+        Task updatedTask = taskDAO.getById(2);
         assertEquals("Updated Task Title", updatedTask.getTitle());
-
-        // Restore the original value
-        existingTask.setTitle(originalTitle);
-        taskDAO.update(existingTask);
-
-        // Verify the restoration
-        Task restoredTask = taskDAO.getById(4);
-        assertEquals(originalTitle, restoredTask.getTitle());
     }
 
 
@@ -68,8 +60,8 @@ class TaskDAOTest {
 
     @Test
     void delete() {
-        taskDAO.delete(taskDAO.getById(5));
-        assertNull(taskDAO.getById(5));
+        taskDAO.delete(taskDAO.getById(4));
+        assertNull(taskDAO.getById(4));
     }
 
     @Test
