@@ -16,3 +16,13 @@ getting things ready for the first checkpoint.
 10/1/24 Continued to implement DAO and hibernate into my project, I need to run tests and then I will be able to submit week 4
 
 10/6 Attempted to fix my POM that is giving me a weird error with my Driver, finished up week 4 activity(implementing DAO for one table)
+
+## Week 7 - Fall 2024
+10/8 Updated Journal, Plan and readme for checkpoint 1
+
+10/9 Tried to fix DAO errors for week 5 activity
+
+10/11 Continued debugging
+
+## Week 10 - Fall 2024
+10/28 Been really busy with life so I'm attempting to catch up, working on deploying to AWS
