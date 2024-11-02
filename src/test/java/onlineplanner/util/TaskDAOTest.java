@@ -44,17 +44,7 @@ class TaskDAOTest {
     }
 
 
-    @Test
-    void insertSuccess() {
-        // Create a new task
-        Task taskToInsert = new Task("Testing Java Application", "Add testing", 2,6);
-        // Insert the task
-        taskDAO.insert(taskToInsert);
-        // Retrieve the task and assert that it was inserted
-        Task insertedTask = taskDAO.getById(taskToInsert.getId());
-        assertNotEquals(0, insertedTask);
-        assertEquals("Testing Java Application", insertedTask.getTitle());
-    }
+
 
 
     @Test

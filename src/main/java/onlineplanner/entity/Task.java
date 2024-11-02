@@ -20,7 +20,7 @@ public class Task {
     // Foreign key references to the day of the week
     @ManyToOne
     @JoinColumn(name = "todo_date", referencedColumnName = "id")
-    private Day todoDay; // Day for the planned todo day
+    private Day todoDay; // Day for the planned to do day
 
     @ManyToOne
     @JoinColumn(name = "due_date", referencedColumnName = "id")

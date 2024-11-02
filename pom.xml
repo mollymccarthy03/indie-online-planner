@@ -20,6 +20,7 @@
     <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
     <maven-surefire-plugin-version>2.19</maven-surefire-plugin-version>
     <mysql-version>8.0.16</mysql-version>
+    <orgjson-version>20240205</orgjson-version>
   </properties>
 
   <dependencies>
@@ -35,7 +36,12 @@
       <artifactId>hibernate-c3p0</artifactId>
       <version>${hibernate-version}</version>
     </dependency>
-
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>${orgjson-version}</version>
+    </dependency>
     <!-- next 2 dependencies are for log4j -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
