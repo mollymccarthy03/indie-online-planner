@@ -26,3 +26,6 @@ getting things ready for the first checkpoint.
 
 ## Week 10 - Fall 2024
 10/28 Been really busy with life so I'm attempting to catch up, working on deploying to AWS
+
+## Week 11 - Fall 2024
+11/2 Submitted week 8 exercise, added Accuweather Tempature API code to project. I would like to implement this further
