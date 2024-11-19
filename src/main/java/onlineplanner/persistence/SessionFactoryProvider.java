@@ -1,4 +1,4 @@
-package onlineplanner;
+package onlineplanner.persistence;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

@@ -1,6 +1,6 @@
 package onlineplanner.controller;
 
-import onlineplanner.TaskDAO;
+import onlineplanner.persistence.TaskDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package onlineplanner;
+package onlineplanner.persistence;
 
 import onlineplanner.entity.Task;
 import jakarta.persistence.criteria.CriteriaQuery;

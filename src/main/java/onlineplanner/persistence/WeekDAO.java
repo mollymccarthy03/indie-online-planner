@@ -1,4 +1,4 @@
-package onlineplanner;
+package onlineplanner.persistence;
 
 import onlineplanner.entity.Week;
 import jakarta.persistence.criteria.CriteriaQuery;

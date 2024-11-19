@@ -1,6 +1,6 @@
 package onlineplanner.util;
 
-import onlineplanner.TaskDAO;
+import onlineplanner.persistence.TaskDAO;
 import onlineplanner.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

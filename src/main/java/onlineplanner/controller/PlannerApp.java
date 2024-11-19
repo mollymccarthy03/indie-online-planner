@@ -1,6 +1,6 @@
 package onlineplanner.controller;
 
-import onlineplanner.TaskDAO;
+import onlineplanner.persistence.TaskDAO;
 
 public class PlannerApp extends TaskDAO {
 
