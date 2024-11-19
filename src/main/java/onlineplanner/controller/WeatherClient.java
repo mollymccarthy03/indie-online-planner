@@ -59,7 +59,7 @@ public class WeatherClient {
             } catch (DateTimeParseException e) {
                 // Log error and set a default date/time
                 logger.error("DateTime parsing error: {}", e.getMessage());
-                weatherResponse.setLocalObservationDateTime(LocalDateTime.now()); // Or use a default value
+                weatherResponse.setLocalObservationDateTime(LocalDateTime.now());
             }
 
             // Continue with parsing temperature
