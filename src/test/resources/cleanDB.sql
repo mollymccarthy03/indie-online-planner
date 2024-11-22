@@ -1,46 +1,29 @@
--- Drop existing tables if they exist
+-- Drop tables if they exist for clean startup/testing
 DROP TABLE IF EXISTS `tasks`;
+DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `days`;
 DROP TABLE IF EXISTS `week`;
 
--- Table structure for table `week`
-CREATE TABLE `week` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+-- Table structure for `users`
+CREATE TABLE `users` (
+                         `id` int NOT NULL AUTO_INCREMENT,
+                         `username` varchar(50) NOT NULL,
+                         `email` varchar(100) NOT NULL,
+                         PRIMARY KEY (`id`),
+                         UNIQUE KEY `username` (`username`),
+                         UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Table structure for table `days`
-CREATE TABLE `days` (
-                        `id` int NOT NULL AUTO_INCREMENT,  -- Auto-increment primary key
-                        `day_of_week` varchar(10) NOT NULL,  -- Name of the day (e.g., 'Monday', 'Tuesday')
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- Insert the 7 days of the week into the `days` table
-INSERT INTO `days` (`day_of_week`) VALUES
-                                       ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday'), ('Sunday');
-
--- Table structure for table `tasks`
+-- Table structure for `tasks`
 CREATE TABLE `tasks` (
                          `id` int NOT NULL AUTO_INCREMENT,
                          `title` varchar(255) DEFAULT NULL,
                          `description` text,
-                         `todo_date` int NOT NULL,  -- Foreign key linking to the days table (for planned day)
-                         `due_date` int NOT NULL,   -- Foreign key linking to the days table (for due day)
+                         `todo_date` int NOT NULL,
+                         `due_date` int NOT NULL,
+                         `user_id` int NOT NULL,
                          PRIMARY KEY (`id`),
-                         FOREIGN KEY (`todo_date`) REFERENCES `days`(`id`) ON DELETE CASCADE,  -- Foreign key for todo_date
-                         FOREIGN KEY (`due_date`) REFERENCES `days`(`id`) ON DELETE CASCADE   -- Foreign key for due_date
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                         KEY `fk_user_task` (`user_id`),
+                         CONSTRAINT `fk_user_task` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Insert data for the `week` table (representing a week)
-INSERT IGNORE INTO `week` (`id`)
-VALUES (1);
-
-
--- Insert tasks and link them to specific days in the `days` table
--- The `todo_date` references the `days.id` for the day you plan to do the task
--- The `due_date` references the `days.id` for the day the task is due
-INSERT IGNORE INTO `tasks` (`id`, `title`, `description`, `todo_date`, `due_date`)
-VALUES (1, 'Finish Planner', 'Complete the online planner project', 1, 4),  -- to do Monday, due Thursday
-       (2, 'Prepare Report', 'Write the report for the meeting', 3, 5);    -- to do Wednesday, due Friday

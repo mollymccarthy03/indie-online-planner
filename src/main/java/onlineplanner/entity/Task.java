@@ -1,43 +1,31 @@
 package onlineplanner.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "tasks")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description")
     private String description;
 
-    // Foreign key references to the day of the week
-    @ManyToOne
-    @JoinColumn(name = "todo_date", referencedColumnName = "id")
-    private Day todoDay; // Day for the planned to do day
+    @Column(name = "todo_date")
+    private int todoDate;
+
+    @Column(name = "due_date")
+    private int dueDate;
 
     @ManyToOne
-    @JoinColumn(name = "due_date", referencedColumnName = "id")
-    private Day dueDay;  // Day for the due day
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    // Constructors
-    public Task() {}
-
-    // Constructor expecting Day objects
-    public Task(String title, String description, Day todoDay, Day dueDay) {
-        this.title = title;
-        this.description = description;
-        this.todoDay = todoDay;
-        this.dueDay = dueDay;
-    }
-
-    // Getters and Setters
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -62,24 +50,27 @@ public class Task {
         this.description = description;
     }
 
-    public Day getTodoDay() {
-        return todoDay;
+    public int getTodoDate() {
+        return todoDate;
     }
 
-    public void setTodoDay(Day todoDay) {
-        this.todoDay = todoDay;
+    public void setTodoDate(int todoDate) {
+        this.todoDate = todoDate;
     }
 
-    public Day getDueDay() {
-        return dueDay;
+    public int getDueDate() {
+        return dueDate;
     }
 
-    public void setDueDay(Day dueDay) {
-        this.dueDay = dueDay;
+    public void setDueDate(int dueDate) {
+        this.dueDate = dueDate;
     }
 
-    @Override
-    public String toString() {
-        return title + " - Planned on: " + todoDay.getDayOfWeek() + ", Due: " + dueDay.getDayOfWeek();
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
