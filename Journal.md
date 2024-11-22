@@ -29,3 +29,6 @@ getting things ready for the first checkpoint.
 
 ## Week 11 - Fall 2024
 11/2 Submitted week 8 exercise, added Accuweather Tempature API code to project. I would like to implement this further
+
+## Week 13 - Fall 2024
+11/22 Revised week 8 based on feedback and submitted. Went back and removed day/week to make the database less complicated. 
