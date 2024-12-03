@@ -16,22 +16,4 @@ import java.io.IOException;
  * @author pwaite
  */
 
-@WebServlet(
-        urlPatterns = {"/searchTasks"}
-)
-
-public class SearchTasks extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        TaskDAO taskDAO = new TaskDAO();
-
-        if (req.getParameter("submit").equals("search")) {
-            req.setAttribute("users", taskDAO.getByPropertyEqual("title", req.getParameter("searchTerm")));
-        } else {
-            req.setAttribute("users", taskDAO.getAll());
-        }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/results.jsp");
-        dispatcher.forward(req, resp);
-    }
-}
+//#TODO add search functionality

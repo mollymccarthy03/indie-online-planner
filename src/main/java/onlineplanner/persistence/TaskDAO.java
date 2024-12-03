@@ -10,8 +10,10 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskDAO {
@@ -140,5 +142,20 @@ public class TaskDAO {
         List<Task> Tasks = session.createQuery( query ).getResultList();
         session.close();
         return Tasks;
+    }
+
+    /**
+     *
+     * @param date
+     * @return Task list for certain dates
+     */
+    public List<Task> getTasksForDate(LocalDate date) {
+        Session session = sessionFactory.openSession();
+        String sql = "FROM Task WHERE todoDate = :date";
+        Query<Task> query = session.createQuery(sql, Task.class);
+        query.setParameter("date", date);
+        List<Task> tasks = query.list();
+        session.close();
+        return tasks;
     }
 }
