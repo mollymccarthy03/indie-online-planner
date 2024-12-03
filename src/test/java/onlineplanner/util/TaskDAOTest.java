@@ -12,7 +12,7 @@ class TaskDAOTest {
     @BeforeEach
             void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("src/test/resources/cleanDB.sql");
+        database.runSQL("cleanDB.sql");
         taskDAO = new TaskDAO();
     }
 
@@ -22,16 +22,13 @@ class TaskDAOTest {
         taskDAO.getById(1);
         Task getTask = taskDAO.getById(1);
         assertNotNull(getTask);
-        assertEquals("Finish Planner",getTask.getTitle());
+        assertEquals("Complete homework",getTask.getTitle());
     }
 
     @Test
     void update() {
         // Retrieve the task you want to update (assume it exists)
         Task existingTask = taskDAO.getById(2);
-
-        // Store the original value to restore it later
-        String originalTitle = existingTask.getTitle();
 
         // Modify the task (e.g., update the title)
         existingTask.setTitle("Updated Task Title");
@@ -42,10 +39,6 @@ class TaskDAOTest {
         assertEquals("Updated Task Title", updatedTask.getTitle());
     }
 
-
-
-
-
     @Test
     void delete() {
         taskDAO.delete(taskDAO.getById(4));
@@ -55,20 +48,21 @@ class TaskDAOTest {
     @Test
     void getAll() {
         List<Task> tasks = taskDAO.getAll();
-        assertEquals(2, tasks.size());
+        assertEquals(9, tasks.size());
     }
 
     @Test
     void getByPropertyEqual() {
         taskDAO = new TaskDAO();
-        List<Task> tasks = taskDAO.getByPropertyEqual("title", "Testing Java Application");
+        List<Task> tasks = taskDAO.getByPropertyEqual("title", "Doctor appointment");
         assertEquals(1, tasks.size());
     }
 
     @Test
     void getByPropertyLike() {
         taskDAO = new TaskDAO();
-        List<Task> tasks = taskDAO.getByPropertyLike("title", "Week");
-        assertEquals(0, tasks.size());
+        List<Task> tasks = taskDAO.getByPropertyLike("title", "Read");
+        assertEquals(1, tasks.size());
     }
+
 }

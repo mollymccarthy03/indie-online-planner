@@ -1,5 +1,6 @@
 package onlineplanner.persistence;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import onlineplanner.entity.Task;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
@@ -92,20 +93,32 @@ public class TaskDAO {
      * sample usage: getByPropertyEqual("title", "Testing Java Application")
      * Future usage: get all tasks with to do date of wednesday
      */
-    public List<Task> getByPropertyEqual(String propertyName, String value) {
+    public List<Task> getByPropertyEqual(String propertyName, Object value) {
         Session session = sessionFactory.openSession();
 
         logger.debug("Searching for Task with " + propertyName + " = " + value);
 
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        // Get the CriteriaBuilder and CriteriaQuery
+        CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Task> query = builder.createQuery(Task.class);
         Root<Task> root = query.from(Task.class);
-        query.select(root).where(builder.equal(root.get(propertyName), value));
-        List<Task> tasks = session.createSelectionQuery( query ).getResultList();
+
+        // Handle property based on its type
+        if (propertyName.equals("user")) {
+            // Handle case for 'user' property (association)
+            query.select(root).where(builder.equal(root.get("user"), value));
+        } else {
+            // Handle simple property match
+            query.select(root).where(builder.equal(root.get(propertyName), value));
+        }
+
+        // Execute the query
+        List<Task> tasks = session.createQuery(query).getResultList();
 
         session.close();
         return tasks;
     }
+
 
     /**
      * Get Task by property (like)
@@ -128,5 +141,4 @@ public class TaskDAO {
         session.close();
         return Tasks;
     }
-
 }
