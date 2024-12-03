@@ -32,3 +32,8 @@ getting things ready for the first checkpoint.
 
 ## Week 13 - Fall 2024
 11/22 Revised week 8 based on feedback and submitted. Went back and removed day/week to make the database less complicated. 
+11/24 Finished UserDAO and UserDAO testing(week 5 exercise)
+
+## Week 14 - Fall 2024
+11/25 Working on getting website deployed with AWS
+

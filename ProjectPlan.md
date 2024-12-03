@@ -72,3 +72,18 @@
 - [ ] Test
 - [ ] Final touches before code complete
 - [ ] TURN IN!
+
+### Refocusing for end of semester
+
+12/3 Create ERD and complete checkpoint 2 based on given feedback, begin working on JSP's
+
+12/4 Work on checkpoint 3 requirements, deploying to AWS and week 6 exercise
+
+12/5 Core features, calendar, task list
+
+12/6 Continue working on core functionality, peer review with Rachad
+
+12/7 Identify major bugs, checkpoint 3 met
+
+12/8-12/10 Final presintation, wrap up and finish!
+
