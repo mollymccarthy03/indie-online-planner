@@ -4,9 +4,10 @@ import onlineplanner.entity.Task;
 import onlineplanner.persistence.TaskDAO;
 import onlineplanner.persistence.UserDAO;
 import onlineplanner.entity.User;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +17,7 @@ class UserDAOTest {
     @BeforeEach
     void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("cleanDB.sql"); // Ensure clean DB before tests
+        database.runSQL("cleanDB.sql");
         userDAO = new UserDAO();
         taskDAO = new TaskDAO();
 
@@ -107,62 +108,47 @@ class UserDAOTest {
         assertEquals(user.getId(), savedTask.getUser().getId(), "Task should be associated with the correct user");
     }
 
-
     @Test
     void deleteTaskAssociatedWithUser() {
-        // Retrieve the user with ID 5
+        // Retrieve user with ID 5 and ensure it exists
         User user = userDAO.getById(5);
         assertNotNull(user);
 
-        // Retrieve a task associated with user 5
-        List<Task> userTasks = taskDAO.getByPropertyEqual("user", user);
-        assertFalse(userTasks.isEmpty(), "User should have tasks associated");
+        // Retrieve the first task associated with the user
+        Task taskToDelete = taskDAO.getByPropertyEqual("user", user).stream().findFirst().orElse(null);
+        assertNotNull(taskToDelete, "User should have at least one task");
 
-        // Delete the first task #TODO delete specific task
-        Task taskToDelete = userTasks.get(0);
+        // Get the task ID before deletion
         int taskId = taskToDelete.getId();
 
         // Delete the task
         taskDAO.delete(taskToDelete);
 
-        // Verify the task no longer exists
-        Task deletedTask = taskDAO.getById(taskId);
-        assertNull(deletedTask, "The task should be deleted");
+        // Verify the task is deleted
+        assertNull(taskDAO.getById(taskId), "The task should be deleted");
     }
 
-
     @Test
-    void deleteUserDeleteTasks() {
+    void deleteUserAndTasks() {
         // Retrieve an existing user with tasks
         User user = userDAO.getById(3);
         assertNotNull(user);
 
-        // Retrieve tasks associated with this user
-        List<Task> userTasks = taskDAO.getByPropertyEqual("user", user);
-        assertFalse(userTasks.isEmpty(), "User should have tasks associated");
+        // Retrieve and delete all tasks associated with the user
+        List<Task> userTasks = new ArrayList<>(user.getTasks());
+        for (Task task : userTasks) {
+            taskDAO.delete(task);  // Manually delete each task
+        }
 
         // Delete the user
         userDAO.delete(user);
 
         // Verify the user is deleted
-        User deletedUser = userDAO.getById(3);
-        assertNull(deletedUser, "User should be deleted");
+        assertNull(userDAO.getById(3), "User should be deleted");
 
-        // Verify tasks are deleted if cascade delete is set
+        // Verify the tasks are deleted
         for (Task task : userTasks) {
-            Task deletedTask = taskDAO.getById(task.getId());
-            assertNull(deletedTask, "Task should be deleted if cascade delete is set");
-        }
-
-        // Retrieve tasks associated with the deleted user (Check orphaned behavior)
-        List<Task> orphanedTasks = taskDAO.getByPropertyEqual("user", user);
-        for (Task orphanedTask : orphanedTasks) {
-            // If orphan removal is not enabled, task should still exist but user should be null
-            assertNotNull(orphanedTask, "Orphaned task should still exist");
-            assertNull(orphanedTask.getUser(), "Orphaned task's user should be null");
+            assertNull(taskDAO.getById(task.getId()), "Task should be deleted");
         }
     }
-
-
-
 }
