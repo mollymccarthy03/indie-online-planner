@@ -39,7 +39,7 @@ VALUES
     ('Grocery shopping', 'Buy milk, eggs, bread, and coffee', 20241126, 20241126, 1),
     ('Team meeting', 'Discuss the Q4 project goals and deliverables', 20241127, 20241127, 1),
     ('Doctor appointment', 'Annual check-up at 10:00 AM', 20241128, 20241128, 1),
-    ('Read new book', 'Read the first 50 pages of "The Great Gatsby"', 20241129, 20241202, 1),
+    ('Read', 'Read the first 50 pages of "The Great Gatsby"', 20241129, 20241202, 1),
     ('Prepare presentation', 'Prepare slides for the sales pitch', 20241130, 20241201, 1),
     ('Submit report', 'Submit the weekly progress report to the manager', 20241201, 20241201, 3),
     ('Plan weekend trip', 'Research destinations and book tickets for a short vacation', 20241202, 20241203, 3),

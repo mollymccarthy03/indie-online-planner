@@ -1,6 +1,6 @@
 package onlineplanner.util;
 
-import onlineplanner.persistence.TaskDAO;
+import onlineplanner.persistence.GenericDAO;
 import onlineplanner.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,60 +9,58 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskDAOTest {
 
+    GenericDAO<Task> genericDAO;
+
     @BeforeEach
-            void setUp() {
+    void setUp() {
+        genericDAO = new GenericDAO<>(Task.class);  // Use GenericDAO for Task
         Database database = Database.getInstance();
         database.runSQL("cleanDB.sql");
-        taskDAO = new TaskDAO();
     }
 
-    TaskDAO taskDAO;
     @Test
     void getById() {
-        taskDAO.getById(1);
-        Task getTask = taskDAO.getById(1);
+        Task getTask = genericDAO.getById(1);
         assertNotNull(getTask);
-        assertEquals("Complete homework",getTask.getTitle());
+        assertEquals("Complete homework", getTask.getTitle());
     }
 
     @Test
     void update() {
         // Retrieve the task you want to update (assume it exists)
-        Task existingTask = taskDAO.getById(2);
+        Task existingTask = genericDAO.getById(2);
 
         // Modify the task (e.g., update the title)
         existingTask.setTitle("Updated Task Title");
-        taskDAO.update(existingTask);
+        genericDAO.update(existingTask);
 
         // Retrieve the task again and assert that the update occurred
-        Task updatedTask = taskDAO.getById(2);
+        Task updatedTask = genericDAO.getById(2);
         assertEquals("Updated Task Title", updatedTask.getTitle());
     }
 
     @Test
     void delete() {
-        taskDAO.delete(taskDAO.getById(4));
-        assertNull(taskDAO.getById(4));
+        Task taskToDelete = genericDAO.getById(4);
+        genericDAO.delete(taskToDelete);
+        assertNull(genericDAO.getById(4));
     }
 
     @Test
     void getAll() {
-        List<Task> tasks = taskDAO.getAll();
+        List<Task> tasks = genericDAO.getAll();
         assertEquals(9, tasks.size());
     }
 
     @Test
     void getByPropertyEqual() {
-        taskDAO = new TaskDAO();
-        List<Task> tasks = taskDAO.getByPropertyEqual("title", "Doctor appointment");
+        List<Task> tasks = genericDAO.getByPropertyEqual("title", "Doctor appointment");
         assertEquals(1, tasks.size());
     }
 
     @Test
     void getByPropertyLike() {
-        taskDAO = new TaskDAO();
-        List<Task> tasks = taskDAO.getByPropertyLike("title", "Read");
+        List<Task> tasks = genericDAO.getByPropertyLike("title", "Read");
         assertEquals(1, tasks.size());
     }
-
 }

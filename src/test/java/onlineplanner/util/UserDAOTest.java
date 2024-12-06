@@ -1,10 +1,8 @@
 package onlineplanner.util;
 
 import onlineplanner.entity.Task;
-import onlineplanner.persistence.TaskDAO;
-import onlineplanner.persistence.UserDAO;
 import onlineplanner.entity.User;
-import org.hibernate.Hibernate;
+import onlineplanner.persistence.GenericDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -13,17 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
+    GenericDAO<User> userDAO;
+    GenericDAO<Task> taskDAO;
 
     @BeforeEach
     void setUp() {
+        // Initialize the GenericDAOs for User and Task
+        userDAO = new GenericDAO<>(User.class);
+        taskDAO = new GenericDAO<>(Task.class);
+
+        // Run the clean-up script to ensure a fresh database state
         Database database = Database.getInstance();
         database.runSQL("cleanDB.sql");
-        userDAO = new UserDAO();
-        taskDAO = new TaskDAO();
-
     }
-    TaskDAO taskDAO;
-    UserDAO userDAO;
 
     @Test
     void getById() {
@@ -57,7 +57,8 @@ class UserDAOTest {
     @Test
     void delete() {
         // Delete a user and assert that they no longer exist
-        userDAO.delete(userDAO.getById(5));
+        User user = userDAO.getById(5);
+        userDAO.delete(user);
         assertNull(userDAO.getById(5));
     }
 
@@ -82,6 +83,7 @@ class UserDAOTest {
         List<User> users = userDAO.getByPropertyLike("username", "john");
         assertEquals(1, users.size());
     }
+
     @Test
     void addTaskToUser() {
         // Retrieve an existing user
