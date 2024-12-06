@@ -30,16 +30,16 @@
 ### Week 9 (Start of the team project)
 #### Checkpoint 3 is Due: Deployed to AWS, at least one JSP that displays data from the database is implemented, authentication implemented, add AWS deployed app link to indie project list in student repo.
 - [ ] Double-check all checkpoint 3 items (above) are complete and visible in github.
-- [ ] Begin process of creating add tasks jsp
-- [ ] Design and create Add Assignment page
-- [ ] JSP, DAO, testing
+- [x] Begin process of creating add tasks jsp
+- [x] Design and create Add Assignment page
+- [x] JSP, DAO, testing
 
 ### Week 10
-- [ ] Develop core features(calendar)
+- [x] Develop core features(calendar)
 - [ ] Design and create calendar feature, make sure output is correct
 - [ ] Create script to put tasks in the calendar for testing
-- [ ] Design and create daily assignment list
-- [ ] Create JSPs
+- [x] Design and create daily assignment list
+- [x] Create JSPs
       
 ### Week 11
 - [ ] Integrate the past week into the current build
@@ -53,7 +53,7 @@
       
 ### Week 13
 - [ ] Finish ALL User stories
-- [ ] CSS and styling
+- [x] CSS and styling
 - [ ] Major bugs identified
       
 ### Week 14
