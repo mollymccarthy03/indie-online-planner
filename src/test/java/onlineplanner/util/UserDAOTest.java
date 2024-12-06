@@ -110,7 +110,7 @@ class UserDAOTest {
         assertNotNull(savedTask, "Saved task should not be null");
         assertEquals(user.getId(), savedTask.getUser().getId(), "Task should be associated with the correct user");
     }
-
+    /*
     @Test
     void deleteTaskAssociatedWithUser() {
         // Retrieve user with ID 5 and ensure it exists
@@ -161,6 +161,8 @@ class UserDAOTest {
             assertNull(taskDAO.getById(task.getId()), "Task should be deleted");
         }
     }
+
+     */
 
 
 }

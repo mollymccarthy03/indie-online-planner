@@ -17,7 +17,7 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
 
         <mapping class="onlineplanner.entity.Task"/>
-        <mapping class="onlineplanner.entity.Day"/>
+        <mapping class="onlineplanner.entity.User"/>
 
     </session-factory>
 
