@@ -3,6 +3,7 @@ package onlineplanner.util;
 import onlineplanner.entity.Task;
 import onlineplanner.entity.User;
 import onlineplanner.persistence.GenericDAO;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -114,10 +115,14 @@ class UserDAOTest {
     void deleteTaskAssociatedWithUser() {
         // Retrieve user with ID 5 and ensure it exists
         User user = userDAO.getById(5);
-        assertNotNull(user);
+        assertNotNull(user, "User with ID 5 should exist");
 
-        // Retrieve the first task associated with the user
-        Task taskToDelete = taskDAO.getByPropertyEqual("user", user).stream().findFirst().orElse(null);
+        // Retrieve the tasks associated with the user
+        List<Task> userTasks = taskDAO.getByPropertyEqual("user", user); // Fetch tasks for the user
+        assertFalse(userTasks.isEmpty(), "No tasks found for the user");
+
+        // Retrieve the first task to delete
+        Task taskToDelete = userTasks.stream().findFirst().orElse(null);
         assertNotNull(taskToDelete, "User should have at least one task");
 
         // Get the task ID before deletion
@@ -132,14 +137,17 @@ class UserDAOTest {
 
     @Test
     void deleteUserAndTasks() {
-        // Retrieve an existing user with tasks
+        // Retrieve an existing user with tasks, ensuring the tasks collection is initialized
         User user = userDAO.getById(3);
-        assertNotNull(user);
+        assertNotNull(user, "User with ID 3 should exist");
+
+        // Initialize the tasks collection within the current session to avoid LazyInitializationException
+        Hibernate.initialize(user.getTasks());
 
         // Retrieve and delete all tasks associated with the user
         List<Task> userTasks = new ArrayList<>(user.getTasks());
         for (Task task : userTasks) {
-            taskDAO.delete(task);  // Manually delete each task
+            taskDAO.delete(task); // Delete each task
         }
 
         // Delete the user
@@ -153,4 +161,6 @@ class UserDAOTest {
             assertNull(taskDAO.getById(task.getId()), "Task should be deleted");
         }
     }
+
+
 }

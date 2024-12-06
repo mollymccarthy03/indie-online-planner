@@ -54,7 +54,7 @@ class TaskDAOTest {
 
     @Test
     void getByPropertyEqual() {
-        List<Task> tasks = genericDAO.getByPropertyEqual("title", "Doctor appointment");
+        List<Task> tasks = genericDAO.getByPropertyEqual("title", "Complete Homework");
         assertEquals(1, tasks.size());
     }
 
