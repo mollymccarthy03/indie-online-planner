@@ -21,6 +21,9 @@ public class TaskDAO {
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
+    public TaskDAO(SessionFactory sessionFactory) {
+    }
+
     /**
      * Get Task by id
      */
@@ -30,7 +33,6 @@ public class TaskDAO {
         session.close();
         return task;
     }
-
     /**
      * update Task
      * @param task  Task to be updated
@@ -42,7 +44,6 @@ public class TaskDAO {
         transaction.commit();
         session.close();
     }
-
     /**
      * insert a new Task
      * @param task  Task to be inserted
@@ -57,7 +58,6 @@ public class TaskDAO {
         session.close();
         return id;
     }
-
     /**
      * Delete a Task
      * @param task task to be deleted
@@ -69,8 +69,6 @@ public class TaskDAO {
         transaction.commit();
         session.close();
     }
-
-
     /** Return a list of all Tasks
      *
      * @return All Tasks
@@ -89,7 +87,6 @@ public class TaskDAO {
 
         return tasks;
     }
-
     /**
      * Get Task by property (exact match)
      * sample usage: getByPropertyEqual("title", "Testing Java Application")
@@ -120,8 +117,6 @@ public class TaskDAO {
         session.close();
         return tasks;
     }
-
-
     /**
      * Get Task by property (like)
      * sample usage: getByPropertyLike("title", "Java")
@@ -143,19 +138,38 @@ public class TaskDAO {
         session.close();
         return Tasks;
     }
+    /**
+     * Get Tasks for a specific date property
+     * @param dateProperty the date property to filter by (e.g., "todoDate" or "dueDate")
+     * @param date the date to match
+     * @return List of matching tasks
+     */
+    private List<Task> getTasksByDate(String dateProperty, LocalDate date) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Task> query = builder.createQuery(Task.class);
+            Root<Task> root = query.from(Task.class);
+
+            query.select(root).where(builder.equal(root.get(dateProperty), date));
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+    /**
+     * Get Tasks for a specific todoDate
+     * @param date the todoDate to match
+     * @return List of matching tasks
+     */
+    public List<Task> getTasksForTodoDate(LocalDate date) {
+        return getTasksByDate("todoDate", date);
+    }
 
     /**
-     *
-     * @param date
-     * @return Task list for certain dates
+     * Get Tasks for a specific dueDate
+     * @param date the dueDate to match
+     * @return List of matching tasks
      */
-    public List<Task> getTasksForDate(LocalDate date) {
-        Session session = sessionFactory.openSession();
-        String sql = "FROM Task WHERE todoDate = :date";
-        Query<Task> query = session.createQuery(sql, Task.class);
-        query.setParameter("date", date);
-        List<Task> tasks = query.list();
-        session.close();
-        return tasks;
+    public List<Task> getTasksForDueDate(LocalDate date) {
+        return getTasksByDate("dueDate", date);
     }
 }

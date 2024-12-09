@@ -130,7 +130,6 @@ public class GenericDAO<T> {
         return entities;
     }
 
-    
     private Session getSession(){
         return SessionFactoryProvider.getSessionFactory().openSession();
     }
