@@ -37,3 +37,6 @@ getting things ready for the first checkpoint.
 ## Week 14 - Fall 2024
 11/25 Working on getting website deployed with AWS
 
+## Week 15 - Fall 2024
+12/2-12/6 Catching up from where I was at. Created genericDAO and started to get that working. Scheduled meeting to go over errors with DAO on Monday. Created JSP's and styles.
+
