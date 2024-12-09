@@ -13,8 +13,11 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class TaskDAO {
 
@@ -22,6 +25,10 @@ public class TaskDAO {
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     public TaskDAO(SessionFactory sessionFactory) {
+    }
+
+    public TaskDAO() {
+
     }
 
     /**
@@ -171,5 +178,17 @@ public class TaskDAO {
      */
     public List<Task> getTasksForDueDate(LocalDate date) {
         return getTasksByDate("dueDate", date);
+    }
+    // #TODO make this better
+    // Sample method to get tasks for a week
+    public Map<DayOfWeek, List<Task>> getTasksForWeek(LocalDate startOfWeek) {
+        Map<DayOfWeek, List<Task>> tasksByDay = new EnumMap<>(DayOfWeek.class);
+
+        // Fill in tasks for each day
+        for (DayOfWeek day : DayOfWeek.values()) {
+            tasksByDay.put(day, getTasksForTodoDate(startOfWeek.plusDays(day.getValue() - 1)));
+        }
+
+        return tasksByDay;
     }
 }

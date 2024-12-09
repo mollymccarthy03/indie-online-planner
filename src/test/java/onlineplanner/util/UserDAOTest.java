@@ -6,6 +6,8 @@ import onlineplanner.persistence.GenericDAO;
 import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,8 +97,8 @@ class UserDAOTest {
         Task newTask = new Task();
         newTask.setTitle("New Task");
         newTask.setDescription("New task description");
-        newTask.setTodoDate(20241201);
-        newTask.setDueDate(20241205);
+        newTask.setTodoDate(LocalDate.parse("2024-12-10"));
+        newTask.setDueDate(LocalDate.parse("2024-12-13"));
         newTask.setUser(user);
 
         // Save the task

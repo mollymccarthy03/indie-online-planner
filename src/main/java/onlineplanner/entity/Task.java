@@ -2,6 +2,8 @@ package onlineplanner.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -16,10 +18,10 @@ public class Task {
     private String description;
 
     @Column(name = "todo_date")
-    private int todoDate;
+    private LocalDate todoDate;
 
     @Column(name = "due_date")
-    private int dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -50,19 +52,19 @@ public class Task {
         this.description = description;
     }
 
-    public int getTodoDate() {
+    public LocalDate getTodoDate() {
         return todoDate;
     }
 
-    public void setTodoDate(int todoDate) {
+    public void setTodoDate(LocalDate todoDate) {
         this.todoDate = todoDate;
     }
 
-    public int getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(int dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
