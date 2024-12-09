@@ -23,7 +23,7 @@ public class CalendarTasks extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get current date or specific date from the request parameter
-        LocalDate currentDate = LocalDate.now(); // You can use any date logic you prefer
+        LocalDate currentDate = LocalDate.now();
 
         // Get the start of the week (Monday)
         LocalDate startOfWeek = currentDate.with(DayOfWeek.MONDAY);
