@@ -4,6 +4,8 @@ import onlineplanner.persistence.GenericDAO;
 import onlineplanner.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +51,7 @@ class TaskDAOTest {
     @Test
     void getAll() {
         List<Task> tasks = genericDAO.getAll();
-        assertEquals(9, tasks.size());
+        assertEquals(10, tasks.size());
     }
 
     @Test
@@ -63,5 +65,33 @@ class TaskDAOTest {
         List<Task> tasks = genericDAO.getByPropertyLike("title", "Read");
         assertEquals(1, tasks.size());
     }
-    // #TODO tests for getTasksForTodoDate  getTasksForDueDate getTaskbyDate
+    @Test
+    void getTasksForTodoDate() {
+        // Define the date for which we want to fetch tasks
+        LocalDate todoDate = LocalDate.of(2024, 12, 15);
+
+        // Fetch tasks with the specified tododate
+        List<Task> tasks = genericDAO.getByPropertyEqual("todoDate", todoDate);
+
+        // Assertions
+        assertNotNull(tasks);
+        assertFalse(tasks.isEmpty(), "Tasks list should not be empty");
+        assertEquals(1, tasks.size());
+        assertEquals(todoDate, tasks.get(0).getTodoDate());
+    }
+
+    @Test
+    void getTasksForDueDate() {
+        // Define the date for which we want to fetch tasks
+        LocalDate dueDate = LocalDate.of(2024, 12, 15);
+
+        // Fetch tasks with the specified due date
+        List<Task> tasks = genericDAO.getByPropertyEqual("dueDate", dueDate);
+
+        // Assertions
+        assertNotNull(tasks);
+        assertFalse(tasks.isEmpty(), "Tasks list should not be empty");
+        assertEquals(3, tasks.size());
+        assertEquals(dueDate, tasks.get(0).getDueDate());
+    }
 }

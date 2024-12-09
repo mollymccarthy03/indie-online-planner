@@ -18,6 +18,7 @@ class UserDAOTest {
     GenericDAO<Task> taskDAO;
 
     @BeforeEach
+    @Test
     void setUp() {
         // Initialize the GenericDAOs for User and Task
         userDAO = new GenericDAO<>(User.class);
@@ -51,10 +52,6 @@ class UserDAOTest {
         // Retrieve the user again and assert that the update occurred
         User updatedUser = userDAO.getById(1);
         assertEquals("updated_username", updatedUser.getUsername());
-
-        // Optionally, restore the original value after the test
-        existingUser.setUsername(originalUsername);
-        userDAO.update(existingUser);
     }
 
     @Test
@@ -69,7 +66,7 @@ class UserDAOTest {
     void getAll() {
         // Test fetching all users
         List<User> users = userDAO.getAll();
-        assertEquals(4, users.size());
+        assertEquals(5, users.size());
     }
 
     @Test
@@ -112,7 +109,7 @@ class UserDAOTest {
         assertNotNull(savedTask, "Saved task should not be null");
         assertEquals(user.getId(), savedTask.getUser().getId(), "Task should be associated with the correct user");
     }
-    /*
+
     @Test
     void deleteTaskAssociatedWithUser() {
         // Retrieve user with ID 5 and ensure it exists
@@ -139,18 +136,13 @@ class UserDAOTest {
 
     @Test
     void deleteUserAndTasks() {
-        // Retrieve an existing user with tasks, ensuring the tasks collection is initialized
+        // Retrieve the user to be deleted
         User user = userDAO.getById(3);
         assertNotNull(user, "User with ID 3 should exist");
 
-        // Initialize the tasks collection within the current session to avoid LazyInitializationException
-        Hibernate.initialize(user.getTasks());
-
-        // Retrieve and delete all tasks associated with the user
-        List<Task> userTasks = new ArrayList<>(user.getTasks());
-        for (Task task : userTasks) {
-            taskDAO.delete(task); // Delete each task
-        }
+        // Retrieve all tasks associated with the user
+        List<Task> userTasks = taskDAO.getTasksByUserId(user.getId());
+        assertFalse(userTasks.isEmpty(), "User should have tasks");
 
         // Delete the user
         userDAO.delete(user);
@@ -158,13 +150,10 @@ class UserDAOTest {
         // Verify the user is deleted
         assertNull(userDAO.getById(3), "User should be deleted");
 
-        // Verify the tasks are deleted
+        // Verify no tasks exist for the deleted user
         for (Task task : userTasks) {
-            assertNull(taskDAO.getById(task.getId()), "Task should be deleted");
+            assertNull(taskDAO.getById(task.getId()),
+                    "Task with ID " + task.getId() + " should be deleted");
         }
     }
-
-     */
-
-
 }

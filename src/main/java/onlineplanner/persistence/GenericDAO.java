@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Root;
+import onlineplanner.entity.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -133,4 +134,22 @@ public class GenericDAO<T> {
     private Session getSession(){
         return SessionFactoryProvider.getSessionFactory().openSession();
     }
+    /**
+     *
+     * @param userId
+     * @return list of tasks based on cetain userID
+     */
+    public List<Task> getTasksByUserId(int userId) {
+        try (Session session = getSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Task> query = builder.createQuery(Task.class);
+            Root<Task> root = query.from(Task.class);
+
+            // Create the query to filter tasks by user ID
+            query.select(root).where(builder.equal(root.get("user").get("id"), userId));
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+
 }

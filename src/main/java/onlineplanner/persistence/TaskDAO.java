@@ -179,7 +179,6 @@ public class TaskDAO {
     public List<Task> getTasksForDueDate(LocalDate date) {
         return getTasksByDate("dueDate", date);
     }
-    // #TODO make this better
     // Sample method to get tasks for a week
     public Map<DayOfWeek, List<Task>> getTasksForWeek(LocalDate startOfWeek) {
         Map<DayOfWeek, List<Task>> tasksByDay = new EnumMap<>(DayOfWeek.class);
