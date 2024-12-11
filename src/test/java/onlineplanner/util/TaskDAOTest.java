@@ -8,10 +8,13 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 class TaskDAOTest {
 
     GenericDAO<Task> genericDAO;
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     @BeforeEach
     void setUp() {
@@ -52,6 +55,7 @@ class TaskDAOTest {
     void getAll() {
         List<Task> tasks = genericDAO.getAll();
         assertEquals(10, tasks.size());
+        System.out.println(tasks.toString());
     }
 
     @Test

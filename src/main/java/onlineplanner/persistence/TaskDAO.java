@@ -25,6 +25,7 @@ public class TaskDAO {
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     public TaskDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public TaskDAO() {
@@ -145,49 +146,51 @@ public class TaskDAO {
         session.close();
         return Tasks;
     }
-    /**
-     * Get Tasks for a specific date property
-     * @param dateProperty the date property to filter by (e.g., "todoDate" or "dueDate")
-     * @param date the date to match
-     * @return List of matching tasks
-     */
-    private List<Task> getTasksByDate(String dateProperty, LocalDate date) {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Task> query = builder.createQuery(Task.class);
-            Root<Task> root = query.from(Task.class);
-
-            query.select(root).where(builder.equal(root.get(dateProperty), date));
-
-            return session.createQuery(query).getResultList();
-        }
-    }
-    /**
-     * Get Tasks for a specific todoDate
-     * @param date the todoDate to match
-     * @return List of matching tasks
-     */
-    public List<Task> getTasksForTodoDate(LocalDate date) {
-        return getTasksByDate("todoDate", date);
-    }
-
-    /**
-     * Get Tasks for a specific dueDate
-     * @param date the dueDate to match
-     * @return List of matching tasks
-     */
-    public List<Task> getTasksForDueDate(LocalDate date) {
-        return getTasksByDate("dueDate", date);
-    }
-    // Sample method to get tasks for a week
-    public Map<DayOfWeek, List<Task>> getTasksForWeek(LocalDate startOfWeek) {
-        Map<DayOfWeek, List<Task>> tasksByDay = new EnumMap<>(DayOfWeek.class);
-
-        // Fill in tasks for each day
-        for (DayOfWeek day : DayOfWeek.values()) {
-            tasksByDay.put(day, getTasksForTodoDate(startOfWeek.plusDays(day.getValue() - 1)));
-        }
-
-        return tasksByDay;
-    }
+//    /*
+//    /**
+//     * Get Tasks for a specific date property
+//     * @param dateProperty the date property to filter by (e.g., "todoDate" or "dueDate")
+//     * @param date the date to match
+//     * @return List of matching tasks
+//     */
+//    private List<Task> getTasksByDate(String dateProperty, LocalDate date) {
+//        try (Session session = sessionFactory.openSession()) {
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Task> query = builder.createQuery(Task.class);
+//            Root<Task> root = query.from(Task.class);
+//
+//            query.select(root).where(builder.equal(root.get(dateProperty), date));
+//
+//            return session.createQuery(query).getResultList();
+//        }
+//    }
+//    /**
+//     * Get Tasks for a specific todoDate
+//     * @param date the todoDate to match
+//     * @return List of matching tasks
+//     */
+//    public List<Task> getTasksForTodoDate(LocalDate date) {
+//        return getTasksByDate("todoDate", date);
+//    }
+//
+//    /**
+//     * Get Tasks for a specific dueDate
+//     * @param date the dueDate to match
+//     * @return List of matching tasks
+//     */
+//    public List<Task> getTasksForDueDate(LocalDate date) {
+//        return getTasksByDate("dueDate", date);
+//    }
+//    */
+//    // Sample method to get tasks for a week
+//    public Map<DayOfWeek, List<Task>> getTasksForWeek(LocalDate startOfWeek) {
+//        Map<DayOfWeek, List<Task>> tasksByDay = new EnumMap<>(DayOfWeek.class);
+//
+//        // Fill in tasks for each day
+//        for (DayOfWeek day : DayOfWeek.values()) {
+//            tasksByDay.put(day, getTasksForTodoDate(startOfWeek.plusDays(day.getValue() - 1)));
+//        }
+//
+//        return tasksByDay;
+//    }
 }

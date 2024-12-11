@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class GenericDAO<T> {
@@ -151,5 +152,38 @@ public class GenericDAO<T> {
             return session.createQuery(query).getResultList();
         }
     }
+    /**
+     * Get Tasks for a specific date property
+     * @param dateProperty the date property to filter by (e.g., "todoDate" or "dueDate")
+     * @param date the date to match
+     * @return List of matching tasks
+     */
+    private List<T> getTasksByDate(String dateProperty, LocalDate date) {
+        try (Session session = getSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<T> query = builder.createQuery(type);
+            Root<T> root = query.from(type);
 
+            query.select(root).where(builder.equal(root.get(dateProperty), date));
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+    /**
+     * Get Tasks for a specific todoDate
+     * @param date the todoDate to match
+     * @return List of matching tasks
+     */
+    public List<T> getTasksForTodoDate(LocalDate date) {
+        return getTasksByDate("todoDate", date);
+    }
+
+    /**
+     * Get Tasks for a specific dueDate
+     * @param date the dueDate to match
+     * @return List of matching tasks
+     */
+    public List<T> getTasksForDueDate(LocalDate date) {
+        return getTasksByDate("dueDate", date);
+    }
 }
