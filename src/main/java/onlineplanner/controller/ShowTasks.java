@@ -38,9 +38,9 @@ public class ShowTasks extends HttpServlet {
             List<Task> dueTodayTasks = genericDAO.getTasksForDueDate(today);
             List<Task> allTasks = genericDAO.getAll();
 
-            logger.info(todayTasks);
-            logger.info(dueTodayTasks);
-            logger.info(allTasks);
+            logger.debug(todayTasks);
+            logger.debug(dueTodayTasks);
+            logger.debug(allTasks);
 
             // Set tasks as request attributes
             request.setAttribute("todayTasks", todayTasks);
