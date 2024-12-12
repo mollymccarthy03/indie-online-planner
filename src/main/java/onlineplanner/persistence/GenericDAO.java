@@ -140,11 +140,11 @@ public class GenericDAO<T> {
      * @param userId
      * @return list of tasks based on cetain userID
      */
-    public List<Task> getTasksByUserId(int userId) {
+    public List<T> getTasksByUserId(int userId) {
         try (Session session = getSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Task> query = builder.createQuery(Task.class);
-            Root<Task> root = query.from(Task.class);
+            CriteriaQuery<T> query = builder.createQuery(type);
+            Root<T> root = query.from(type);
 
             // Create the query to filter tasks by user ID
             query.select(root).where(builder.equal(root.get("user").get("id"), userId));

@@ -10,14 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TaskDAO {
 
@@ -193,4 +187,5 @@ public class TaskDAO {
 //
 //        return tasksByDay;
 //    }
+
 }

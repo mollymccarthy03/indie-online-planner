@@ -3,7 +3,9 @@ package onlineplanner.util;
 import onlineplanner.entity.Task;
 import onlineplanner.entity.User;
 import onlineplanner.persistence.GenericDAO;
-import org.hibernate.Hibernate;
+import onlineplanner.persistence.TaskDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
+    private final Logger logger = LogManager.getLogger(this.getClass());
     GenericDAO<User> userDAO;
     GenericDAO<Task> taskDAO;
 
@@ -67,6 +70,7 @@ class UserDAOTest {
         // Test fetching all users
         List<User> users = userDAO.getAll();
         assertEquals(5, users.size());
+        logger.debug(users.toString());
     }
 
     @Test

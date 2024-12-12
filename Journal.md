@@ -43,4 +43,5 @@ getting things ready for the first checkpoint.
 ## Week 15 - Fall 2024
 12/8 Added servlets but got nothing good for outputs, I know its issues with my cleandb not working and my DAO. Before my meeting tomorrow I will attempt to debug
 12/9 Fixed cleandb and DAO. need to get things deployed onto my website locally and then deploy to aws
-12/10 
+12/11 Had a meeting with Rashad, he helped me start to debug my JSP's and servlets. Big day planned for tomorrow
+12/12
