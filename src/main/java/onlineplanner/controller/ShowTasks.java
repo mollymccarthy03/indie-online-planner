@@ -17,7 +17,10 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet("/taskList")
+@WebServlet(
+        name = "taskList",
+        urlPatterns = { "/taskList" }
+)
 public class ShowTasks extends HttpServlet {
     private GenericDAO genericDAO;
     private final Logger logger = LogManager.getLogger(this.getClass());
